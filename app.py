@@ -7,47 +7,30 @@ import time
 from scipy.spatial import distance
 from imutils import face_utils
 
-# ---------------------------
-# Page Settings
-# ---------------------------
 st.set_page_config(page_title="Driver Drowsiness Detection", layout="wide")
 
 st.title(" AI Based Driver Drowsiness Detection System")
 
 st.markdown("""
-### Team Members
-- Fizza Khan 
 - Romaisa Mariam 
-- Rameen Iftikhar 
-""")
-
-# ---------------------------
-# Alarm
-# ---------------------------
 pygame.mixer.init()
 pygame.mixer.music.load("alarm.wav")
 
-# ---------------------------
 # EAR Function
-# ---------------------------
 def eye_aspect_ratio(eye):
     A = distance.euclidean(eye[1], eye[5])
     B = distance.euclidean(eye[2], eye[4])
     C = distance.euclidean(eye[0], eye[3])
     return (A + B) / (2.0 * C)
 
-# ---------------------------
 # Thresholds
-# ---------------------------
 EAR_THRESHOLD = 0.25
 CONSEC_FRAMES = 20
 
 counter = 0
 alarm_on = False
 
-# ---------------------------
 # Load dlib
-# ---------------------------
 detector = dlib.get_frontal_face_detector()
 
 predictor = dlib.shape_predictor(
@@ -57,9 +40,7 @@ predictor = dlib.shape_predictor(
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
-# ---------------------------
 # Dashboard Layout
-# ---------------------------
 col1, col2 = st.columns([3, 1])
 
 video_placeholder = col1.empty()
@@ -69,9 +50,7 @@ status_placeholder = col2.empty()
 score_placeholder = col2.empty()
 timer_placeholder = col2.empty()
 
-# ---------------------------
 # Camera
-# ---------------------------
 start_btn = st.button("Start Detection")
 
 if not start_btn:
